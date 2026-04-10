@@ -1,0 +1,8 @@
+{
+  "name": "JLK Brahmans",
+  "description": "Premier Brahman cattle breeder specializing in precision breeding and excellence. Showcasing high-quality bulls, cows, pedigrees, and genetics.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

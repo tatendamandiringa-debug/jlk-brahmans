@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "cattle": {
+      "title": "Cattle",
+      "description": "A Brahman bull or cow in the herd.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the animal" },
+        "registrationNumber": { "type": "string", "description": "ABBA registration number" },
+        "gender": { "type": "string", "enum": ["Bull", "Cow"], "description": "Gender of the animal" },
+        "birthDate": { "type": "string", "format": "date", "description": "Date of birth" },
+        "sire": { "type": "string", "description": "Name of the sire" },
+        "dam": { "type": "string", "description": "Name of the dam" },
+        "description": { "type": "string", "description": "Detailed description or notes" },
+        "imageUrl": { "type": "string", "description": "URL to the primary image" },
+        "videoUrl": { "type": "string", "description": "URL to a video showcase" },
+        "pedigree": { "type": "string", "description": "JSON string of pedigree data" },
+        "isForSale": { "type": "boolean", "description": "Whether the animal is currently for sale" },
+        "price": { "type": "string", "description": "Asking price if for sale" },
+        "category": { "type": "string", "enum": ["Gray", "Red", "Commercial"], "description": "Genetic category" }
+      },
+      "required": ["name", "gender", "category"]
+    },
+    "blogPosts": {
+      "title": "Blog Post",
+      "description": "Updates and news from the ranch.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "author": { "type": "string" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["title", "content"]
+    },
+    "newsletter": {
+      "title": "Newsletter Subscription",
+      "description": "Emails for the newsletter.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "subscribedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email"]
+    }
+  },
+  "firestore": {
+    "cattle": {
+      "schema": "cattle",
+      "description": "Collection of all cattle in the herd."
+    },
+    "blogPosts": {
+      "schema": "blogPosts",
+      "description": "Collection of ranch updates."
+    },
+    "newsletter": {
+      "schema": "newsletter",
+      "description": "Collection of newsletter emails."
+    }
+  }
+}

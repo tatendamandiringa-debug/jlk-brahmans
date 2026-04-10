@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: cattle
+    // Fields:
+    //   - name: string (required)
+    //   - registrationNumber: string
+    //   - gender: string (Bull, Cow) (required)
+    //   - birthDate: string (ISO 8601)
+    //   - sire: string
+    //   - dam: string
+    //   - description: string
+    //   - imageUrl: string
+    //   - videoUrl: string
+    //   - pedigree: string (JSON string)
+    //   - isForSale: bool
+    //   - price: string
+    //   - category: string (Gray, Red, Commercial) (required)
+    //
+    // Collection: blogPosts
+    // Fields:
+    //   - title: string (required)
+    //   - content: string (required)
+    //   - author: string
+    //   - publishedAt: timestamp
+    //   - imageUrl: string
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "tatendamandiringa@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidCattle(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.gender in ['Bull', 'Cow'] &&
+             data.category in ['Gray', 'Red', 'Commercial'] &&
+             (!('description' in data) || (data.description is string && data.description.size() < 2000)) &&
+             (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() < 500)) &&
+             (!('videoUrl' in data) || (data.videoUrl is string && data.videoUrl.size() < 500));
+    }
+
+    function isValidBlogPost(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+             data.content is string && data.content.size() > 0 && data.content.size() < 10000;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    match /cattle/{cattleId} {
+      allow read: if true; // Publicly viewable herd
+      allow create, update, delete: if isAdmin() && isValidCattle(request.resource.data);
+    }
+
+    match /blogPosts/{postId} {
+      allow read: if true; // Publicly viewable blog
+      allow create, update, delete: if isAdmin() && isValidBlogPost(request.resource.data);
+    }
+
+    match /newsletter/{emailId} {
+      allow create: if request.resource.data.email is string && 
+                      request.resource.data.email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}
