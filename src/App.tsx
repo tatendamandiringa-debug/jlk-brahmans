@@ -250,11 +250,11 @@ const Navbar = () => {
                 ))}
               </div>
               <div className="mt-12 pt-8 border-t border-brand-maroon/5 flex gap-6 justify-center shrink-0">
-                <a href="https://www.facebook.com/profile.php?id=61574343195673" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Facebook className="w-5 h-5" /></a>
-                <a href="https://www.instagram.com/jlkbrahmans.zw/" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Instagram className="w-5 h-5" /></a>
-                <a href="https://www.tiktok.com/@jlk_brahmans_zw23" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><TikTokIcon className="w-5 h-5" /></a>
-                <a href="https://x.com/JLK_BrahmansZW" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><XIcon className="w-5 h-5" /></a>
-                <a href="https://www.youtube.com/@JLKBrahmansTV" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Youtube className="w-5 h-5" /></a>
+                <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Facebook className="w-5 h-5" /></a>
+                <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Instagram className="w-5 h-5" /></a>
+                <a href="https://www.tiktok.com/@jlkbrahmanszw" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><TikTokIcon className="w-5 h-5" /></a>
+                <a href="https://x.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><XIcon className="w-5 h-5" /></a>
+                <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-brand-maroon hover:text-brand-red transition-colors"><Youtube className="w-5 h-5" /></a>
               </div>
             </motion.div>
           </>
@@ -349,11 +349,11 @@ const Footer = () => {
               Breeding precision. Raising excellence. The premier source for elite Brahman genetics in Zimbabwe and across Africa.
             </p>
             <div className="flex gap-6">
-              <a href="https://www.facebook.com/profile.php?id=61574343195673" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Facebook"><Facebook className="w-5 h-5" /></a>
-              <a href="https://www.instagram.com/jlkbrahmans.zw/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Instagram"><Instagram className="w-5 h-5" /></a>
-              <a href="https://www.tiktok.com/@jlk_brahmans_zw23" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="TikTok"><TikTokIcon className="w-5 h-5" /></a>
-              <a href="https://x.com/JLK_BrahmansZW" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Twitter (X)"><XIcon className="w-5 h-5" /></a>
-              <a href="https://www.youtube.com/@JLKBrahmansTV" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="YouTube"><Youtube className="w-5 h-5" /></a>
+              <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Facebook"><Facebook className="w-5 h-5" /></a>
+              <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Instagram"><Instagram className="w-5 h-5" /></a>
+              <a href="https://www.tiktok.com/@jlkbrahmanszw" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="TikTok"><TikTokIcon className="w-5 h-5" /></a>
+              <a href="https://x.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="Twitter (X)"><XIcon className="w-5 h-5" /></a>
+              <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors" title="YouTube"><Youtube className="w-5 h-5" /></a>
             </div>
           </div>
           
