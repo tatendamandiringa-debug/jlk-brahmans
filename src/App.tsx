@@ -207,10 +207,29 @@ const Navbar = () => {
           ) : null}
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="xl:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X className={isScrolledOrSubpage ? 'text-brand-dark' : 'text-white'} /> : <Menu className={isScrolledOrSubpage ? 'text-brand-dark' : 'text-white'} />}
-        </button>
+        {/* Mobile Social Icons + Toggle */}
+        <div className="xl:hidden flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="Facebook">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="https://www.tiktok.com/@jlkbrahmanszw" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="TikTok">
+              <TikTokIcon className="w-4 h-4" />
+            </a>
+            <a href="https://x.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="X (Twitter)">
+              <XIcon className="w-4 h-4" />
+            </a>
+            <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="YouTube">
+              <Youtube className="w-4 h-4" />
+            </a>
+          </div>
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X className={isScrolledOrSubpage ? 'text-brand-dark' : 'text-white'} /> : <Menu className={isScrolledOrSubpage ? 'text-brand-dark' : 'text-white'} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
