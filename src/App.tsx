@@ -199,6 +199,18 @@ const Navbar = () => {
               )} />
             </Link>
           ))}
+          {/* Desktop Social Icons */}
+          <div className={`flex items-center gap-4 ml-2 pl-6 border-l ${isScrolledOrSubpage ? 'border-brand-maroon/20' : 'border-white/20'}`}>
+            <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'}>
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'}>
+              <Youtube className="w-4 h-4" />
+            </a>
+            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'}>
+              <Instagram className="w-4 h-4" />
+            </a>
+          </div>
           {user ? (
             <div className="flex items-center gap-4 ml-4">
               <Link to="/admin" className="text-[10px] uppercase tracking-widest font-display font-bold text-brand-maroon bg-brand-maroon/5 px-4 py-2 rounded-full hover:bg-brand-maroon/10 transition-colors">Admin</Link>
@@ -213,17 +225,11 @@ const Navbar = () => {
             <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="Facebook">
               <Facebook className="w-4 h-4" />
             </a>
-            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="Instagram">
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a href="https://www.tiktok.com/@jlkbrahmanszw" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="TikTok">
-              <TikTokIcon className="w-4 h-4" />
-            </a>
-            <a href="https://x.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="X (Twitter)">
-              <XIcon className="w-4 h-4" />
-            </a>
             <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="YouTube">
               <Youtube className="w-4 h-4" />
+            </a>
+            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" className={isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red transition-colors' : 'text-white/80 hover:text-white transition-colors'} aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
             </a>
           </div>
           <button onClick={() => setIsOpen(!isOpen)}>
