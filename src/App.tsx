@@ -201,15 +201,15 @@ const Navbar = () => {
           ))}
           {/* Desktop Social Icons */}
           <div className={`flex items-center gap-4 ml-2 pl-6 border-l ${isScrolledOrSubpage ? 'border-brand-maroon/20' : 'border-white/20'}`}>
-            <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={cn('relative group transition-colors', isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red' : 'text-white/80 hover:text-white')}>
+            <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={cn('relative group transition-colors hover:text-brand-maroon', isScrolledOrSubpage ? 'text-brand-dark/70' : 'text-white/80')}>
               <Facebook className="w-4 h-4" />
               <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-maroon transition-all duration-300 group-hover:w-full" />
             </a>
-            <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={cn('relative group transition-colors', isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red' : 'text-white/80 hover:text-white')}>
+            <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={cn('relative group transition-colors hover:text-brand-maroon', isScrolledOrSubpage ? 'text-brand-dark/70' : 'text-white/80')}>
               <Youtube className="w-4 h-4" />
               <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-maroon transition-all duration-300 group-hover:w-full" />
             </a>
-            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={cn('relative group transition-colors', isScrolledOrSubpage ? 'text-brand-maroon hover:text-brand-red' : 'text-white/80 hover:text-white')}>
+            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={cn('relative group transition-colors hover:text-brand-maroon', isScrolledOrSubpage ? 'text-brand-dark/70' : 'text-white/80')}>
               <Instagram className="w-4 h-4" />
               <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-maroon transition-all duration-300 group-hover:w-full" />
             </a>
