@@ -616,9 +616,9 @@ const Home = () => {
               }}
               className="mb-6"
             >
-              <h1 className="text-6xl md:text-9xl font-serif tracking-tighter leading-[0.8] drop-shadow-2xl">
-                Precision <span className="italic text-white">Breeding.</span><br />
-                Raising <span className="text-brand-red">Excellence.</span>
+              <h1 className="text-5xl md:text-8xl lg:text-9xl font-display font-extrabold tracking-tight leading-[0.95] drop-shadow-2xl uppercase">
+                Welcome to <br />
+                <span className="text-brand-red">JLK Brahman Stud</span>
               </h1>
             </motion.div>
             
@@ -640,8 +640,8 @@ const Home = () => {
               }}
               className="mb-12"
             >
-              <h2 className="text-xs md:text-sm font-bold tracking-[0.4em] uppercase text-white py-4 px-8 inline-block">
-                The Premier Source for Elite <span className="text-brand-red">Brahman Genetics</span> in Africa
+              <h2 className="text-xs md:text-sm font-display font-bold tracking-[0.4em] uppercase text-white py-4 px-8 inline-block">
+                The Premier Source for Elite <span className="text-brand-red font-extrabold">Brahman Genetics</span> in Africa
               </h2>
             </motion.div>
             
