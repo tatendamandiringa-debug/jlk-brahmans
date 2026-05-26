@@ -204,9 +204,7 @@ const Navbar = () => {
               <Link to="/admin" className="text-[10px] uppercase tracking-widest font-display font-bold text-brand-maroon bg-brand-maroon/5 px-4 py-2 rounded-full hover:bg-brand-maroon/10 transition-colors">Admin</Link>
               <button onClick={handleLogout} className="text-brand-gray hover:text-brand-maroon transition-colors p-2 rounded-full hover:bg-brand-maroon/5"><LogOut className="w-4 h-4" /></button>
             </div>
-          ) : (
-            <button onClick={handleLogin} className="btn-primary !py-2.5 !px-6 ml-4">Owner Login</button>
-          )}
+          ) : null}
         </div>
 
         {/* Mobile Toggle */}
