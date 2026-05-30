@@ -755,7 +755,7 @@ const Home = () => {
               className="lg:col-span-2 relative aspect-video bg-brand-dark rounded-[3rem] overflow-hidden group shadow-2xl"
             >
               <img 
-                src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=1200" 
+                src="YouTube.jpg" 
                 className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-1000"
                 alt="Main Video Thumbnail"
               />
