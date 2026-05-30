@@ -1620,7 +1620,7 @@ const About = () => (
             className="absolute -bottom-12 -right-12 bg-brand-dark text-white p-14 rounded-[3rem] shadow-2xl hidden md:block max-w-xs border border-white/5"
           >
             <Quote className="w-10 h-10 text-brand-red mb-6 opacity-50" />
-            <h4 className="font-serif text-2xl mb-4 italic leading-tight">"Precision Breeding. Raising Excellence."</h4>
+            <h4 className="font-serif text-2xl mb-4 italic leading-tight">"Breeding Precision. Raising Excellence."</h4>
             <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">Our Core Philosophy</p>
           </motion.div>
         </div>
