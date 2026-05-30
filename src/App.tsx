@@ -617,7 +617,7 @@ const Home = () => {
               className="mb-6"
             >
               <h1 className="text-6xl md:text-9xl font-serif tracking-tighter leading-[0.8] drop-shadow-2xl">
-                Precision <span className="italic text-white">Breeding.</span><br />
+                Breeding <span className="italic text-white">Precision. </span><br />
                 Raising <span className="text-brand-red">Excellence.</span>
               </h1>
             </motion.div>
