@@ -614,9 +614,9 @@ const Home = () => {
                   }
                 })
               }}
-              className="mb-6"
+              className="mt-32 md:mt-48 mb-6"
             >
-              <h1 className="text-6xl md:text-9xl font-serif tracking-tighter leading-tight drop-shadow-2xl">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif tracking-tighter leading-tight drop-shadow-2xl">
                 Breeding <span className="italic text-white">Precision. </span><br />
                 Raising <span className="text-brand-red">Excellence.</span>
               </h1>
@@ -641,7 +641,7 @@ const Home = () => {
               className="mb-12"
             >
               <h2 className="text-xs md:text-sm font-bold tracking-[0.4em] uppercase text-white py-4 px-8 inline-block">
-                The Premier Source for Elite <span className="text-brand-red">Brahman Genetics</span> in Africa
+                The Premier Source for Elite <span className="text-white">Brahman Genetics</span> in Africa
               </h2>
             </motion.div>
             
