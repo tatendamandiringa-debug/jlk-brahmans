@@ -616,7 +616,7 @@ const Home = () => {
               }}
               className="mb-6"
             >
-              <h1 className="text-6xl md:text-9xl font-serif tracking-tighter leading-[0.8] drop-shadow-2xl">
+              <h1 className="text-6xl md:text-9xl font-serif tracking-tighter leading-tight drop-shadow-2xl">
                 Breeding <span className="italic text-white">Precision. </span><br />
                 Raising <span className="text-brand-red">Excellence.</span>
               </h1>
@@ -1620,7 +1620,7 @@ const About = () => (
             className="absolute -bottom-12 -right-12 bg-brand-dark text-white p-14 rounded-[3rem] shadow-2xl hidden md:block max-w-xs border border-white/5"
           >
             <Quote className="w-10 h-10 text-brand-red mb-6 opacity-50" />
-            <h4 className="font-serif text-2xl mb-4 italic leading-tight">"Breeding Precision.  Raising Excellence."</h4>
+            <h4 className="font-serif text-2xl mb-4 italic leading-tight">"Breeding Precision. Raising Excellence."</h4>
             <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">Our Core Philosophy</p>
           </motion.div>
         </div>
