@@ -582,7 +582,7 @@ const Home = () => {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=2000" 
+            src="hero_image.jpg" 
             alt="JLK FUTURE 605" 
             className="w-full h-full object-cover"
           />
