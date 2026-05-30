@@ -737,7 +737,7 @@ const Home = () => {
                 <Youtube className="w-6 h-6" />
                 <span className="subheading !mb-0 !text-red-600">YouTube Channel</span>
               </div>
-              <h2 className="heading-lg">JLK TV: Inside the Ranch</h2>
+              <h2 className="heading-lg">jlkbrahmans: Inside the Ranch</h2>
               <p className="text-brand-gray/70 text-lg leading-relaxed font-light">
                 Go behind the scenes at JLK Brahmans. Watch our latest cattle showcases, educational videos, and ranch updates.
               </p>
@@ -775,9 +775,9 @@ const Home = () => {
             </motion.div>
             <div className="flex flex-col gap-8">
               {[
-                { title: 'Brahman Nutrition Guide', views: '1.2K views', img: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&q=80&w=400' },
-                { title: 'Show Prep: Grooming Elite Bulls', views: '850 views', img: 'https://images.unsplash.com/photo-1545468835-3024172cd35e?auto=format&fit=crop&q=80&w=400' },
-                { title: 'Veld Management in Harare', views: '2.4K views', img: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=400' }
+                { title: 'Brahman Nutrition Guide', views: '1.2K views', img: 'Brahman Nutrition Guide.jpg' },
+                { title: 'Show Prep: Grooming Elite Bulls', views: '850 views', img: 'Show Prep Grooming Elite Bulls.jpg' },
+                { title: 'Veld Management in Harare', views: '2.4K views', img: 'Veld Management in Harare.jpg' }
               ].map((video, i) => (
                 <motion.div 
                   key={i} 
