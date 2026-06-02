@@ -121,6 +121,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [studOpen, setStudOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -134,14 +135,19 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', path: '/about' },
-    { name: 'Sires', path: '/sires' },
-    { name: 'Champions', path: '/champions' },
-    { name: 'Juniors', path: '/juniors' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Why Brahmans', path: '/why-brahmans' },
     { name: 'News', path: '/news' },
     { name: 'Genetics', path: '/genetics' },
     { name: 'Sale', path: '/sale' },
   ];
+
+  const studLinks = [
+    { name: 'Sires', path: '/sires', desc: 'Elite breeding bulls' },
+    { name: 'Juniors', path: '/juniors', desc: 'Rising next generation' },
+  ];
+
+  const isStudActive = location.pathname === '/sires' || location.pathname === '/juniors';
 
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
@@ -181,6 +187,77 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden xl:flex items-center gap-8">
+          {/* About first */}
+          <Link
+            to="/about"
+            className={cn(
+              "text-[10px] uppercase tracking-[0.25em] font-display font-bold transition-all hover:text-brand-maroon relative group",
+              location.pathname === '/about'
+                ? "text-brand-maroon"
+                : isScrolledOrSubpage ? "text-brand-dark/70" : "text-white/80"
+            )}
+          >
+            About
+            <span className={cn(
+              "absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-maroon transition-all duration-300 group-hover:w-full",
+              location.pathname === '/about' ? "w-full" : ""
+            )} />
+          </Link>
+
+          {/* Stud Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setStudOpen(true)}
+            onMouseLeave={() => setStudOpen(false)}
+          >
+            <button
+              className={cn(
+                "text-[10px] uppercase tracking-[0.25em] font-display font-bold transition-all hover:text-brand-maroon relative group flex items-center gap-1",
+                isStudActive
+                  ? "text-brand-maroon"
+                  : isScrolledOrSubpage ? "text-brand-dark/70" : "text-white/80"
+              )}
+            >
+              Stud
+              <ChevronRight className={cn("w-3 h-3 transition-transform duration-300", studOpen ? "rotate-90" : "")} />
+              <span className={cn(
+                "absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-maroon transition-all duration-300 group-hover:w-full",
+                isStudActive ? "w-full" : ""
+              )} />
+            </button>
+            <AnimatePresence>
+              {studOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-52 bg-white rounded-2xl shadow-2xl border border-brand-maroon/10 overflow-hidden z-[80]"
+                >
+                  <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-maroon via-brand-red to-brand-maroon" />
+                  {studLinks.map((sl) => (
+                    <Link
+                      key={sl.name}
+                      to={sl.path}
+                      onClick={() => setStudOpen(false)}
+                      className={cn(
+                        "flex flex-col px-6 py-4 hover:bg-brand-cream transition-colors group/item",
+                        location.pathname === sl.path ? "bg-brand-cream" : ""
+                      )}
+                    >
+                      <span className={cn(
+                        "text-[10px] uppercase tracking-[0.25em] font-bold transition-colors",
+                        location.pathname === sl.path ? "text-brand-red" : "text-brand-dark group-hover/item:text-brand-red"
+                      )}>{sl.name}</span>
+                      <span className="text-[9px] text-brand-gray/50 font-light mt-0.5">{sl.desc}</span>
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Remaining nav links */}
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
@@ -270,6 +347,15 @@ const Navbar = () => {
                 <button onClick={() => setIsOpen(false)}><X className="w-6 h-6 text-brand-dark" /></button>
               </div>
               <div className="flex flex-col gap-6">
+                <Link to="/about" onClick={() => setIsOpen(false)} className="text-lg font-serif uppercase tracking-widest text-brand-dark hover:text-brand-maroon border-b border-brand-maroon/5 pb-3">About</Link>
+                {/* Stud sub-links */}
+                <div className="border-b border-brand-maroon/5 pb-3">
+                  <div className="text-xs uppercase tracking-[0.3em] font-bold text-brand-gray/40 mb-3">Stud</div>
+                  <div className="flex flex-col gap-3 pl-4">
+                    <Link to="/sires" onClick={() => setIsOpen(false)} className="text-base font-serif uppercase tracking-widest text-brand-dark hover:text-brand-maroon">Sires</Link>
+                    <Link to="/juniors" onClick={() => setIsOpen(false)} className="text-base font-serif uppercase tracking-widest text-brand-dark hover:text-brand-maroon">Juniors</Link>
+                  </div>
+                </div>
                 {navLinks.map((link) => (
                   <Link 
                     key={link.name} 
@@ -394,8 +480,9 @@ const Footer = () => {
             <ul className="space-y-4 text-white/50 text-sm font-light">
               <li><Link to="/about" className="hover:text-white transition-colors">About the Ranch</Link></li>
               <li><Link to="/sires" className="hover:text-white transition-colors">Elite Sires</Link></li>
-              <li><Link to="/champions" className="hover:text-white transition-colors">Champions</Link></li>
               <li><Link to="/juniors" className="hover:text-white transition-colors">Juniors</Link></li>
+              <li><Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
+              <li><Link to="/why-brahmans" className="hover:text-white transition-colors">Why Brahmans</Link></li>
               <li><Link to="/news" className="hover:text-white transition-colors">Latest News</Link></li>
               <li><Link to="/sale" className="hover:text-white transition-colors">Buy from JLK Brahmans</Link></li>
             </ul>
@@ -674,7 +761,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Breeding Philosophy */}
+      {/* Why Brahmans teaser – replaced full section with a CTA card */}
       <section className="section-padding bg-brand-dark text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-maroon/5 -skew-x-12 translate-x-20" />
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
@@ -689,22 +776,14 @@ const Home = () => {
               Built for the <br /><span className="italic text-white/80">African Veld.</span>
             </h2>
             <p className="text-white/70 text-xl leading-relaxed mb-12 font-light">
-              At JLK Brahmans, we don't just breed cattle; we engineer resilience. Our breeding program is specifically designed to produce Brahmans that thrive in the Zimbabwean climate—hardy, fertile, and high-performing.
+              At JLK Brahmans, we don't just breed cattle—we engineer resilience. Our Brahmans thrive where others fail: scorching heat, sparse grazing, tick pressure. Discover the full case for why Brahmans are Africa's premier beef breed.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-              {[
-                { title: 'Heat Tolerance', desc: 'Superior thermoregulation for the harshest Zimbabwean summers.' },
-                { title: 'Disease Resistance', desc: 'Natural immunity to local tick-borne diseases and parasites.' },
-                { title: 'Foraging Ability', desc: 'Exceptional efficiency in converting natural veld into high-quality beef.' },
-                { title: 'Elite Fertility', desc: 'Strict selection for early maturity and consistent calving intervals.' }
-              ].map((item) => (
-                <div key={item.title} className="group">
-                  <div className="w-8 h-[2px] bg-brand-red mb-6 transition-all group-hover:w-16" />
-                  <h4 className="font-serif text-2xl mb-3 tracking-tight">{item.title}</h4>
-                  <p className="text-sm text-white/50 leading-relaxed font-light">{item.desc}</p>
-                </div>
-              ))}
-            </div>
+            <Link
+              to="/why-brahmans"
+              className="group bg-brand-red text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-brand-maroon hover:scale-105 active:scale-95 shadow-2xl inline-flex items-center gap-3"
+            >
+              Why Brahmans <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            </Link>
           </motion.div>
           <div className="relative group">
             <div className="absolute -inset-6 border border-brand-maroon/30 rounded-full animate-spin-slow opacity-50" />
@@ -1827,6 +1906,398 @@ const Sires = () => {
   );
 };
 
+// ---------------------------------------------------------------------------
+// GALLERY PAGE
+// ---------------------------------------------------------------------------
+const galleryImages = [
+  { src: '/Gallery/BRC-68.jpg', alt: 'BRC-68 Bull', span: 'col-span-1 row-span-2' },
+  { src: '/Gallery/Dutton-and-805-IMG_0752.jpg', alt: 'Dutton and 805', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/Six-Gun-384-Scenic-HOME.jpg', alt: 'Six Gun 384', span: 'col-span-2 row-span-1' },
+  { src: '/Gallery/Show Prep Grooming Elite Bulls.jpg', alt: 'Show Prep – Grooming Elite Bulls', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/Veld Management in Harare.jpg', alt: 'Veld Management in Harare', span: 'col-span-1 row-span-2' },
+  { src: '/Gallery/YouTube.jpg', alt: 'YouTube Feature', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/abby-moulton-rcJdTs_RVC0-unsplash.jpg', alt: 'Ranch Life', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/front.jpg', alt: 'JLK Front', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/hero_image.jpg', alt: 'Hero Herd', span: 'col-span-2 row-span-1' },
+  { src: '/Gallery/mark-stoop-RGsGdm2jW3s-unsplash.jpg', alt: 'Cattle on Veld', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/peo-hedin-9c0eGwzfGgU-unsplash.jpg', alt: 'Ranch Sunrise', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/pexels-pavel-danilyuk-8442529.jpg', alt: 'Agricultural Event', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/pexels-thirdman-8940462.jpg', alt: 'Cattle Show', span: 'col-span-1 row-span-2' },
+  { src: '/Gallery/Brahman Nutrition Guide.jpg', alt: 'Brahman Nutrition Guide', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/scientist-works-with-microscope-laboratory-conducting-experiments-formulas.jpg', alt: 'Genetics Research', span: 'col-span-1 row-span-1' },
+  { src: '/Gallery/logo.png', alt: 'JLK Logo', span: 'col-span-1 row-span-1' },
+];
+
+const GalleryPage = () => {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
+  return (
+    <div className="bg-brand-dark min-h-screen">
+      {/* Hero */}
+      <section className="relative h-[55vh] flex items-end justify-start overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/Gallery/hero_image.jpg" className="w-full h-full object-cover" alt="Gallery Hero" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+          >
+            <span className="subheading !text-brand-red">Visual Archive</span>
+            <h1 className="text-5xl md:text-8xl font-serif text-white tracking-tighter">
+              The JLK <span className="italic text-brand-gray/60">Gallery.</span>
+            </h1>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Bento / Masonry Grid */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[220px] gap-4">
+          {galleryImages.map((img, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+              className={cn(
+                "relative group overflow-hidden rounded-3xl cursor-pointer bg-brand-dark/60",
+                img.span
+              )}
+              onClick={() => setLightbox({ src: img.src, alt: img.alt })}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-0 left-0 w-full p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <p className="text-white text-xs font-bold uppercase tracking-[0.25em]">{img.alt}</p>
+              </div>
+              <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <ExternalLink className="w-4 h-4 text-white" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Social Footer Strip */}
+      <section className="border-t border-white/5 py-16">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <p className="text-white/40 text-sm font-light tracking-widest uppercase">Follow us for behind-the-scenes content</p>
+          <div className="flex gap-6">
+            <a href="https://www.facebook.com/jlkbrahmans" target="_blank" rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-brand-red hover:bg-brand-red/10 transition-all duration-300">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="https://www.instagram.com/jlkbrahmans/" target="_blank" rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-brand-red hover:bg-brand-red/10 transition-all duration-300">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://www.youtube.com/@jlkbrahmans" target="_blank" rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-brand-red hover:bg-brand-red/10 transition-all duration-300">
+              <Youtube className="w-5 h-5" />
+            </a>
+            <a href="https://www.tiktok.com/@jlkbrahmanszw" target="_blank" rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-brand-red hover:bg-brand-red/10 transition-all duration-300">
+              <TikTokIcon className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-6"
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative max-w-5xl w-full max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img src={lightbox.src} alt={lightbox.alt} className="w-full h-full object-contain rounded-2xl shadow-2xl max-h-[85vh]" />
+              <p className="mt-4 text-center text-white/50 text-xs uppercase tracking-[0.3em]">{lightbox.alt}</p>
+              <button
+                onClick={() => setLightbox(null)}
+                className="absolute -top-4 -right-4 w-10 h-10 bg-brand-red rounded-full flex items-center justify-center text-white hover:bg-brand-maroon transition-colors shadow-2xl"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// WHY BRAHMANS PAGE
+// ---------------------------------------------------------------------------
+const WhyBrahmans = () => {
+  const pillars = [
+    {
+      icon: '🌡️',
+      title: 'Heat Tolerance',
+      stat: '+40%',
+      statLabel: 'Better heat dispersal than Bos taurus breeds',
+      desc: 'Brahmans possess a unique loose, pendulous skin and sweat glands that are 3× more numerous than British breeds. This exceptional thermoregulation means they maintain feed intake and fertility even when temperatures exceed 38 °C—a daily reality across Zimbabwe\'s lowveld and Zambezi Valley.'
+    },
+    {
+      icon: '🐛',
+      title: 'Tick & Parasite Resistance',
+      stat: '70%',
+      statLabel: 'Fewer ticks acquired vs. British breeds',
+      desc: 'Brahman hide is thicker and more mobile, making it physically difficult for ticks to attach and feed. Their genetic resistance to tick-borne diseases—including East Coast Fever, Babesiosis, and Anaplasmosis—dramatically reduces veterinary costs and dipping frequency, directly improving your bottom line.'
+    },
+    {
+      icon: '🌿',
+      title: 'Superior Grazing Efficiency',
+      stat: '25%',
+      statLabel: 'More efficient feed conversion on native veld',
+      desc: 'Brahmans have evolved for nutritional scarcity. Their pendulous dewlap and preputial sheath store fat as an energy reserve; they graze 2 hours more per day than Bos taurus cattle and walk farther to water, making full use of every hectare of natural veld without supplementary feeding.'
+    },
+    {
+      icon: '📈',
+      title: 'High Investment Returns',
+      stat: '3×',
+      statLabel: 'Productive lifespan vs. British breeds in Africa',
+      desc: 'A JLK Brahman cow can remain productive for 15+ years in Zimbabwe\'s conditions, delivering calf after calf compared to the 7–8-year lifespan typical of exotic breeds under the same pressures. Every additional calf is pure profit on your genetic investment.'
+    },
+    {
+      icon: '🧬',
+      title: 'Hybrid Vigor (Heterosis)',
+      stat: '20–30%',
+      statLabel: 'Production improvement in F1 crosses',
+      desc: 'When Brahman genetics are crossed with Bos taurus females, the resulting F1 calves exhibit exceptional heterosis—up to 30% more growth, higher weaning weights, and better disease resistance than either parent breed. This is the cornerstone of profitable commercial beef production in Africa.'
+    },
+    {
+      icon: '💧',
+      title: 'Drought Resilience',
+      stat: '40+',
+      statLabel: 'Days without water access tolerated',
+      desc: 'Brahmans are physiologically adapted to drought. They metabolize body reserves more efficiently than other breeds, losing less condition during feed deficits and recovering faster when rains return. This resilience is not just survival—it is a competitive commercial advantage in Zimbabwe\'s erratic rainfall environment.'
+    },
+  ];
+
+  const whyJLK = [
+    { title: 'World-Class Bloodlines', desc: 'Our herd carries genetics from MR V8, JDH, and leading Australian studs—bloodlines proven on multiple continents and now adapted to the African veld.' },
+    { title: 'Breedplan-Recorded', desc: 'Every JLK animal is recorded with the Zimbabwe Brahman Breeders Society. You receive official EPDs for Birth Weight, Weaning Weight, Yearling Weight, and Milk—data you can use to make informed buying decisions.' },
+    { title: 'AI & ET Program', desc: 'We use Artificial Insemination and Embryo Transfer to rapidly multiply our best genetics, ensuring consistent quality and rapid genetic gain across our entire herd.' },
+    { title: 'Selection for Three Pillars', desc: 'Every animal is retained or culled on Structural Soundness, Fertility, and Adaptability—the three traits that drive long-term profitability for our clients.' },
+  ];
+
+  return (
+    <div className="bg-brand-cream min-h-screen">
+      {/* Dark hero */}
+      <section className="relative bg-brand-dark text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/front.jpg" alt="Brahman Veld" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/80 to-brand-dark" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-40">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="max-w-4xl"
+          >
+            <span className="text-brand-red text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">The Zimbabwean Standard</span>
+            <h1 className="text-5xl md:text-8xl font-serif tracking-tighter mb-8 leading-none">
+              Why <span className="italic text-white/60">Brahmans</span><br />Win in Africa.
+            </h1>
+            <p className="text-white/60 text-xl leading-relaxed font-light max-w-2xl mb-12">
+              Every environmental challenge Zimbabwe throws at a cattle farmer—scorching heat, tick pressure, poor grazing, extended drought—is a challenge the Brahman breed was born to overcome.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/sires" className="group bg-brand-red text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-brand-maroon hover:scale-105 inline-flex items-center gap-3">
+                View Elite Sires <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+              <Link to="/sale" className="group border border-white/30 text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-white hover:text-brand-dark inline-flex items-center gap-3">
+                Buy Now <ChevronRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+        {/* Stat bar */}
+        <div className="relative z-10 border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { val: '15+', label: 'Years productive lifespan' },
+              { val: '70%', label: 'Fewer ticks vs. exotic breeds' },
+              { val: '3×', label: 'ROI vs. Bos taurus in Africa' },
+              { val: '30%', label: 'Hybrid vigor growth uplift' },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <div className="text-3xl md:text-4xl font-serif text-brand-red mb-2">{s.val}</div>
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Six Pillars */}
+      <section className="max-w-7xl mx-auto px-6 py-32">
+        <div className="text-center mb-24">
+          <span className="subheading">Breed Advantages</span>
+          <h2 className="heading-lg">Six Reasons Brahmans <br /><span className="italic text-brand-red">Dominate African Beef.</span></h2>
+          <p className="text-brand-gray/60 text-lg font-light max-w-3xl mx-auto mt-4">
+            These are not marketing claims—they are documented physiological and economic advantages that make the Brahman the #1 breed for Zimbabwe's commercial beef farmer.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {pillars.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="bg-white rounded-[3rem] p-10 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-red via-brand-maroon to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="text-4xl mb-6">{p.icon}</div>
+              <div className="flex items-end gap-3 mb-2">
+                <span className="text-4xl font-serif text-brand-red tracking-tighter">{p.stat}</span>
+                <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-brand-gray/40 mb-1 leading-tight max-w-[120px]">{p.statLabel}</span>
+              </div>
+              <h3 className="text-2xl font-serif mb-4 tracking-tight group-hover:text-brand-red transition-colors">{p.title}</h3>
+              <p className="text-brand-gray/60 text-sm leading-relaxed font-light">{p.desc}</p>
+              <div className="w-8 h-[2px] bg-brand-red mt-8 transition-all group-hover:w-16 duration-300" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* The Zimbabwean Standard – moved from Home */}
+      <section className="bg-brand-dark text-white py-32 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-maroon/5 -skew-x-12 translate-x-20" />
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="subheading !text-brand-red">The Zimbabwean Standard</span>
+            <h2 className="heading-lg">
+              Built for the <br /><span className="italic text-white/80">African Veld.</span>
+            </h2>
+            <p className="text-white/70 text-xl leading-relaxed mb-12 font-light">
+              At JLK Brahmans, we don't just breed cattle; we engineer resilience. Our breeding program is specifically designed to produce Brahmans that thrive in the Zimbabwean climate—hardy, fertile, and high-performing.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+              {[
+                { title: 'Heat Tolerance', desc: 'Superior thermoregulation for the harshest Zimbabwean summers.' },
+                { title: 'Disease Resistance', desc: 'Natural immunity to local tick-borne diseases and parasites.' },
+                { title: 'Foraging Ability', desc: 'Exceptional efficiency in converting natural veld into high-quality beef.' },
+                { title: 'Elite Fertility', desc: 'Strict selection for early maturity and consistent calving intervals.' }
+              ].map((item) => (
+                <div key={item.title} className="group">
+                  <div className="w-8 h-[2px] bg-brand-red mb-6 transition-all group-hover:w-16" />
+                  <h4 className="font-serif text-2xl mb-3 tracking-tight">{item.title}</h4>
+                  <p className="text-sm text-white/50 leading-relaxed font-light">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          <div className="relative group">
+            <div className="absolute -inset-6 border border-brand-maroon/30 rounded-full animate-spin-slow opacity-50" />
+            <div className="relative z-10 aspect-square overflow-hidden rounded-full border-8 border-brand-dark shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+              <img
+                src="front.jpg"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100"
+                alt="Brahman Excellence"
+              />
+            </div>
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              className="absolute -bottom-6 -left-6 bg-brand-red p-10 rounded-full z-20 shadow-2xl hidden md:flex items-center justify-center"
+            >
+              <Award className="w-12 h-12 text-white" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why JLK specifically */}
+      <section className="max-w-7xl mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <span className="subheading">Our Commitment</span>
+          <h2 className="heading-lg">Why Choose <span className="italic text-brand-red">JLK Brahmans.</span></h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {whyJLK.map((w, i) => (
+            <motion.div
+              key={w.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white rounded-[2.5rem] p-12 shadow-xl hover:shadow-2xl transition-all duration-500 flex gap-8 items-start group"
+            >
+              <div className="w-12 h-12 bg-brand-red/5 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-brand-red transition-colors duration-500">
+                <div className="w-3 h-3 bg-brand-red rounded-full group-hover:bg-white transition-colors" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-serif mb-4 tracking-tight group-hover:text-brand-red transition-colors">{w.title}</h3>
+                <p className="text-brand-gray/60 text-sm leading-relaxed font-light">{w.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* High-contrast CTA */}
+      <section className="bg-brand-dark text-white py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(139,0,0,0.2)_0%,_transparent_70%)]" />
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-7xl font-serif mb-8 tracking-tighter">
+              Ready to invest in <br /><span className="text-brand-red">Africa's best breed?</span>
+            </h2>
+            <p className="text-white/50 text-lg mb-12 font-light">
+              Contact us today to discuss how JLK genetics can transform your herd's performance and profitability.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/sale" className="group bg-brand-red text-white px-12 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-brand-maroon hover:scale-105 inline-flex items-center gap-3 shadow-2xl">
+                Browse Cattle for Sale <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+              <Link to="/contact" className="group border border-white/30 text-white px-12 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all hover:bg-white hover:text-brand-dark inline-flex items-center gap-3">
+                Contact Us <ChevronRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// CHAMPIONS (kept for potential internal use, not in nav)
+// ---------------------------------------------------------------------------
 const Champions = () => {
   const champions = [
     {
@@ -2624,11 +3095,12 @@ const BottomNav = () => {
     { label: 'About', path: '/about', icon: Users },
     { label: 'Sales', path: '/sale', icon: Trophy },
     { label: 'Sires', path: '/sires', icon: Award },
-    { label: 'Cows', path: '/genetics?cat=cow', icon: Dna },
+    { label: 'Juniors', path: '/juniors', icon: Star },
+    { label: 'Gallery', path: '/gallery', icon: Play },
+    { label: 'Why Brahmans', path: '/why-brahmans', icon: Target },
+    { label: 'Genetics', path: '/genetics', icon: Dna },
     { label: 'Learn', path: '/breeding-education', icon: BookOpen },
-    { label: 'New to Brahman', path: '/resources', icon: Target },
     { label: 'Blog', path: '/news', icon: Newspaper },
-    { label: 'Careers', path: '/careers', icon: Briefcase },
     { label: 'Contact', path: '/contact', icon: Mail },
     { label: 'AI Request', path: '/ai-request', icon: FileBadge },
   ];
@@ -2674,8 +3146,9 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/sires" element={<Sires />} />
-              <Route path="/champions" element={<Champions />} />
               <Route path="/juniors" element={<Juniors />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/why-brahmans" element={<WhyBrahmans />} />
               <Route path="/news" element={<News />} />
               <Route path="/sale" element={<Sale />} />
               <Route path="/genetics" element={<GeneticsDatabase />} />
